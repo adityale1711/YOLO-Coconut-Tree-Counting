@@ -50,6 +50,8 @@ def front():
         file = form.file.data
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        if not os.path.exists(app.config['UPLOAD_FOLDER']):
+            os.makedirs(app.config['UPLOAD_FOLDER'])
         file.save(file_path)
         session['filePath'] = file_path
         return render_template('index.html', form=form, uploaded=True, filename=filename)
