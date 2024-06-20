@@ -257,7 +257,10 @@ def run(
                     if dataset.mode == 'image':
                         cat = int(cls)
                         color = colorLabels(cat)
-                        cv2.rectangle(im0, (x1, y1), (x2, y2), color, 3)
+                        # cv2.rectangle(im0, (x1, y1), (x2, y2), color, 3)
+                        center_x = (x1 + x2) // 2
+                        center_y = (y1 + y2) // 2
+                        cv2.circle(im0, (center_x, center_y), 10, (0, 0, 255), -1)
                         className = classNames()
                         name = className[cat]
                         if (name == "coconuts"):
@@ -265,9 +268,9 @@ def run(
                             label = f'{name}{conf}'
                             textSize = cv2.getTextSize(label, 0, fontScale=0.5, thickness=2)[0]
                             c2 = x1 + textSize[0], y1 - textSize[1] - 3
-                            cv2.rectangle(im0, (x1, y1), c2, color, -1)
-                            cv2.putText(im0, label, (x1, y1 - 2), 0, 0.5, [255, 255, 255], thickness=1,
-                                        lineType=cv2.LINE_AA)
+                            # cv2.rectangle(im0, (x1, y1), c2, color, -1)
+                            # cv2.putText(im0, label, (x1, y1 - 2), 0, 0.5, [255, 255, 255], thickness=1,
+                            #             lineType=cv2.LINE_AA)
                 if dataset.mode == 'video':
                     xywhs = torch.tensor(xywh_bboxs)
                     confss = torch.tensor(confs)
